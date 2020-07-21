@@ -1,1 +1,25 @@
 ##基于tensorflow2.0版本的pfld实现
+
+  训练准备: 创建data文件夹，存放训练所需数据集.
+
+  -->models:存储各种预训练好的模型文件.
+
+  -->Model:存储模型的构建文件.
+    -->activations:各种BN及激活函数.
+    -->convs:自定义CNN,SE等中间层.
+    -->datasets:训练测试数据集准备.
+    -->loss:各种损失函数.
+    -->lr_scheduler:自定义学习率计划.
+    -->pfld_model:pfld和辅助分类模型组装处.
+    -->utils:参数解析以及进度条和landmark绘制等功能函数.
+
+
+  -->train:主训练程序, 模型的准备，优化器，tensorboard
+           等相关设置集合.
+
+  -->test:模型测试.
+
+  -->model_transform:h5，pb，ckpt，tflite模型之间的转换以及量化.
+
+
+

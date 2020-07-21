@@ -7,7 +7,7 @@ from tensorflow.keras import optimizers
 from Model.datasets import DateSet
 from Model.pfld_model import PFLD, AuxiliaryNet
 from Model.loss import pfld_loss
-from Model.utils import parse_arguments, generate_and_save_images, set_memory_growth, ProgressBar
+from Model.utils import parse_arguments, generate_and_save_images, set_memory_growth, ProgressBar, prepare
 from Model.lr_scheduler import MultiStepWarmUpLR
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -29,6 +29,7 @@ train_iterator = iter(batch_train_dataset)
 
 # batch_test_dataset = test_dataset.batch(args.batch_size).repeat()
 if(args.first_train):
+    prepare(args)
     batch_test_dataset = test_dataset.batch(4)
     test_iterator = iter(batch_test_dataset)
 
@@ -38,9 +39,6 @@ if(args.first_train):
 
     np.save('images.npy', test_images)
     np.save('landmarks.npy', test_landmarks)
-    os.system("rm -rf {}/*".format(args.gen_mark_png))
-    os.system("rm -rf {}/*".format(args.checkpoint_dir))
-    os.system("rm -rf {}/*".format(args.logs))
 else:
     test_images = np.load('images.npy')
     test_landmarks = np.load('landmarks.npy')

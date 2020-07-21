@@ -16,7 +16,7 @@ def parse_arguments(argv):
     parser.add_argument('--file_list', type=str,default='data/train_data/list.txt')
     parser.add_argument('--test_list', type=str, default='data/test_data/list.txt')
     parser.add_argument('--seed',type=int, default=666)
-    parser.add_argument('--max_epoch', type=int, default=50)
+    parser.add_argument('--max_epoch', type=int, default=100)
     parser.add_argument('--image_size', type=int, default=112)
     parser.add_argument('--image_channels', type=int, default=3)
     parser.add_argument('--batch_size', type=int, default=128)
@@ -167,6 +167,22 @@ class ProgressBar(object):
 
         sys.stdout.flush()
 
+def prepare(args):
+    if(not os.path.exists(args.logs)):
+        print("[INFO]>>> create {}".format(args.logs))
+    else:
+        os.system("rm -rf {}/*".format(args.logs))
+    if(not os.path.exists(args.gen_mark_png)):
+        print("[INFO]>>> create {}".format(args.gen_mark_png))
+    else:
+        os.system("rm -rf {}/*".format(args.gen_mark_png))
+    if(not os.path.exists(args.checkpoint_dir)):
+        print("[INFO]>>> create {}".format(args.checkpoint_dir))
+    else:
+        os.system("rm -rf {}/*".format(args.checkpoint_dir))
+
+def train_init(args):
+    prepare(args)
 
 def get_gif(pic_dir, pic_format, save_path='dcgan.gif'):
 
